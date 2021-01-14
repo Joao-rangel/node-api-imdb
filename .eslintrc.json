@@ -29,8 +29,13 @@
     "prettier/prettier": "error"
   },
   "settings": {
+    "typescript": {},
     "import/resolver": {
-      "typescript": {}
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
     }
   }
 }
