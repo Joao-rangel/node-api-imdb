@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Like, Repository } from 'typeorm';
 
 import Movie from '../entities/Movie';
 import IMoviesRepository from '../../repositories/IMoviesRepository';
@@ -38,8 +38,26 @@ class MoviesRepository implements IMoviesRepository {
     return movie;
   }
 
-  public async findAllBy(search: ISearchMovieDTO): Promise<Movie[]> {
-    throw new Error('Method not implemented.');
+  public async findAllBy({
+    name,
+    genre,
+    director,
+    actors,
+  }: ISearchMovieDTO): Promise<Movie[]> {
+    const search = {};
+
+    if (name) Object.assign(search, { name: Like(`%${name}%`) });
+    if (genre) Object.assign(search, { genre });
+    if (director) Object.assign(search, { director: Like(`%${director}%`) });
+    if (actors) Object.assign(search, { actors: Like(`%${actors}%`) });
+
+    const movie = await this.ormRepository.find({
+      where: search,
+    });
+
+    if (!movie) throw new Error('Invalid movie id.');
+
+    return movie;
   }
 }
 
