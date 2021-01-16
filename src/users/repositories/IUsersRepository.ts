@@ -4,5 +4,5 @@ import ICreateUserDTO from '../dtos/ICreateUserDTO';
 export default interface IUsersRepository {
   create(user: ICreateUserDTO): Promise<User>;
   save(user: User): Promise<User>;
-  delete(user: User): Promise<void>;
+  delete(id: string): Promise<void>;
 }
