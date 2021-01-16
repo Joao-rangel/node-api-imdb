@@ -6,5 +6,6 @@ const moviesRouter = Router();
 const moviesController = new MoviesController();
 
 moviesRouter.post('/', moviesController.create);
+moviesRouter.get('/:id', moviesController.show);
 
 export default moviesRouter;
