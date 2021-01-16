@@ -27,7 +27,19 @@
       }
     ],
     "prettier/prettier": "error",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "prefix": [
+          "I"
+        ],
+        "format": [
+          "PascalCase"
+        ]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
