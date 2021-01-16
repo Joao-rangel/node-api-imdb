@@ -24,9 +24,6 @@ class User {
   @Column()
   admin: boolean;
 
-  @Column()
-  date: Date;
-
   @CreateDateColumn()
   createdAt: Date;
 

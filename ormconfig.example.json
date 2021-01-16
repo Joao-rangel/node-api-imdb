@@ -8,7 +8,7 @@
     "password": "SET_PASSWORD",
     "database": "SET_DATABASE",
     "entities": [
-      "./src/modules/**/infra/typeorm/entities/*.ts"
+      "./src/**/typeorm/entities/*.ts"
     ],
     "migrations": [
       "./src/shared/typeorm/migrations/*.ts"
