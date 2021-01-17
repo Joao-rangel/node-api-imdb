@@ -55,7 +55,7 @@ class MoviesRepository implements IMoviesRepository {
       where: search,
     });
 
-    if (!movie) throw new Error('Invalid movie id.');
+    if (!movie) throw new Error('The search did not match any movies.');
 
     return movie;
   }

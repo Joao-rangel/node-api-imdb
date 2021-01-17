@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { Serializer } from 'jsonapi-serializer';
 
 import Movie from '../typeorm/entities/Movie';
 import IMoviesRepository from '../repositories/IMoviesRepository';
@@ -30,7 +31,11 @@ class FindMovieService {
       actors,
     });
 
-    return movies;
+    const movieSerializer = new Serializer('movies', {
+      attributes: ['name', 'genre', 'director', 'actors'],
+    });
+
+    return movieSerializer.serialize(movies);
   }
 }
 

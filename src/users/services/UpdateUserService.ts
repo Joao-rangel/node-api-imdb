@@ -1,3 +1,4 @@
+import { Serializer } from 'jsonapi-serializer';
 import { injectable, inject } from 'tsyringe';
 
 import IUsersRepository from '../repositories/IUsersRepository';
@@ -22,7 +23,13 @@ class UpdateUserService {
 
     Object.assign(user, { id, name, email, password });
 
-    return this.usersRepository.save(user);
+    const updatedUser = this.usersRepository.save(user);
+
+    const userSerializer = new Serializer('users', {
+      attributes: ['name', 'email', 'updatedAt'],
+    });
+
+    return userSerializer.serialize(updatedUser);
   }
 }
 

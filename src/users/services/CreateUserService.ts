@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
+import { Serializer } from 'jsonapi-serializer';
 import User from '../typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -22,7 +23,11 @@ class CreateUserService {
       password,
     });
 
-    return user;
+    const userSerializer = new Serializer('users', {
+      attributes: ['name', 'email', 'createdAt'],
+    });
+
+    return userSerializer.serialize(user);
   }
 }
 
