@@ -24,7 +24,7 @@ class CreateUserService {
     });
 
     const userSerializer = new Serializer('users', {
-      attributes: ['name', 'email', 'admin', 'createdAt'],
+      attributes: ['name', 'email', 'admin', 'created_at'],
     });
 
     return userSerializer.serialize(user);

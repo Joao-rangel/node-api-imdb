@@ -31,7 +31,7 @@ class CreateMovieService {
     });
 
     const movieSerializer = new Serializer('movies', {
-      attributes: ['name', 'genre', 'director', 'actors', 'createdAt'],
+      attributes: ['name', 'genre', 'director', 'actors', 'created_at'],
     });
 
     return movieSerializer.serialize(movie);

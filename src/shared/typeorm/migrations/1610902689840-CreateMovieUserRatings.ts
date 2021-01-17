@@ -23,7 +23,7 @@ export default class CreateMovieUserRatings1610902689840
             type: 'uuid',
           },
           {
-            name: 'rating',
+            name: 'user_rating',
             type: 'integer',
           },
           {
