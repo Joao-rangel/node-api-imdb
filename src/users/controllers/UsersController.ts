@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Serializer } from 'jsonapi-serializer';
 import { container } from 'tsyringe';
 
 import CreateUserService from '../services/CreateUserService';
@@ -17,7 +18,11 @@ export default class UsersController {
       password,
     });
 
-    return response.json(user);
+    const userSerializer = new Serializer('users', {
+      attributes: ['name', 'email', 'created_at'],
+    });
+
+    return userSerializer.serialize(user);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -43,6 +48,10 @@ export default class UsersController {
       password,
     });
 
-    return response.json(user);
+    const userSerializer = new Serializer('users', {
+      attributes: ['name', 'email', 'created_at'],
+    });
+
+    return userSerializer.serialize(user);
   }
 }

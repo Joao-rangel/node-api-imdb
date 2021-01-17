@@ -12,6 +12,12 @@ class MoviesRepository implements IMoviesRepository {
     this.ormRepository = getRepository(Movie);
   }
 
+  public async save(movie: Movie): Promise<Movie> {
+    await this.ormRepository.save(movie);
+
+    return movie;
+  }
+
   public async create({
     name,
     genre,
