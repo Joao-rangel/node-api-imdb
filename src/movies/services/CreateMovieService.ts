@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import Movie from '../typeorm/entities/Movie';
 import IMoviesRepository from '../repositories/IMoviesRepository';
+import AppError from '../../shared/errors/AppError';
 
 interface IRequest {
   name: string;
@@ -22,6 +23,12 @@ class CreateMovieService {
     director,
     actors,
   }: IRequest): Promise<Movie> {
+    const existentMovie = await this.MoviesRepository.findByName(name);
+
+    if (existentMovie) {
+      throw new AppError('This movie title is already being used.');
+    }
+
     const movie = await this.MoviesRepository.create({
       name,
       genre,

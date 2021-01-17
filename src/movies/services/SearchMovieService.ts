@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import Movie from '../typeorm/entities/Movie';
 import IMoviesRepository from '../repositories/IMoviesRepository';
+import AppError from '../../shared/errors/AppError';
 
 interface IRequest {
   name?: string;
@@ -29,6 +30,8 @@ class FindMovieService {
       director,
       actors,
     });
+
+    if (!movies) throw new AppError('The search did not match any movies.');
 
     return movies;
   }

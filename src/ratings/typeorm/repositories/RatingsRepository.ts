@@ -14,8 +14,6 @@ class RatingsRepository implements IRatingsRepository {
   async findAllByMovieId(movie_id: string): Promise<Rating[]> {
     const ratings = await this.ormRepository.find({ where: { movie_id } });
 
-    if (!ratings) throw new Error('Invalid movie id.');
-
     return ratings;
   }
 

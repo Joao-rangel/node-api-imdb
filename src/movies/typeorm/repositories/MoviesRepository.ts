@@ -36,10 +36,14 @@ class MoviesRepository implements IMoviesRepository {
     return movie;
   }
 
-  public async findById(id: string): Promise<Movie> {
+  public async findById(id: string): Promise<Movie | undefined> {
     const movie = await this.ormRepository.findOne(id);
 
-    if (!movie) throw new Error('Invalid movie id.');
+    return movie;
+  }
+
+  public async findByName(name: string): Promise<Movie | undefined> {
+    const movie = await this.ormRepository.findOne({ where: { name } });
 
     return movie;
   }
@@ -57,13 +61,11 @@ class MoviesRepository implements IMoviesRepository {
     if (director) Object.assign(search, { director: Like(`%${director}%`) });
     if (actors) Object.assign(search, { actors: Like(`%${actors}%`) });
 
-    const movie = await this.ormRepository.find({
+    const movies = await this.ormRepository.find({
       where: search,
     });
 
-    if (!movie) throw new Error('The search did not match any movies.');
-
-    return movie;
+    return movies;
   }
 }
 
