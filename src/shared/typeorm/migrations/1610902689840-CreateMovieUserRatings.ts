@@ -24,7 +24,8 @@ export default class CreateMovieUserRatings1610902689840
           },
           {
             name: 'user_rating',
-            type: 'integer',
+            type: 'enum',
+            enum: ['0', '1', '2', '3', '4'],
           },
           {
             name: 'created_at',

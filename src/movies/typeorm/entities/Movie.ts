@@ -23,6 +23,15 @@ class Movie {
   @Column()
   actors: string;
 
+  @Column('int')
+  rating_sum: number;
+
+  @Column('int')
+  rating_number: number;
+
+  @Column()
+  rating: number;
+
   @CreateDateColumn()
   created_at: Date;
 

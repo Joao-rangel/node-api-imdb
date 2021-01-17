@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import Rating from '../typeorm/entities/Rating';
 import IRatingsRepository from '../repositories/IRatingsRepository';
+import IMoviesRepository from '../../movies/repositories/IMoviesRepository';
 
 interface IRequest {
   user_id: string;
@@ -13,6 +14,9 @@ class CreateRatingService {
   constructor(
     @inject('RatingsRepository')
     private ratingsRepository: IRatingsRepository,
+
+    @inject('MoviesRepository')
+    private moviesRepository: IMoviesRepository,
   ) {}
 
   public async execute({
@@ -25,6 +29,16 @@ class CreateRatingService {
       movie_id,
       user_rating,
     });
+
+    const movie = await this.moviesRepository.findById(movie_id);
+
+    Object.assign(movie, {
+      rating_number: (movie.rating_number += 1),
+      rating_sum: (movie.rating_sum += user_rating),
+      rating: movie.rating_sum / movie.rating_number,
+    });
+
+    this.moviesRepository.save(movie);
 
     return rating;
   }

@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import { Serializer } from 'jsonapi-serializer';
 import { container } from 'tsyringe';
 
 import CreateMovieService from '../services/CreateMovieService';
 import FindMovieService from '../services/FindMovieService';
 import SearchMovieService from '../services/SearchMovieService';
 
-export default class moviesController {
+export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, genre, director, actors } = request.body;
 
@@ -18,7 +19,11 @@ export default class moviesController {
       actors,
     });
 
-    return response.json(movie);
+    const movieSerializer = new Serializer('movies', {
+      attributes: ['name', 'genre', 'director', 'actors', 'rating'],
+    });
+
+    return response.json(movieSerializer.serialize(movie));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -28,7 +33,11 @@ export default class moviesController {
 
     const movie = await findMovie.execute({ id });
 
-    return response.json(movie);
+    const movieSerializer = new Serializer('movies', {
+      attributes: ['name', 'genre', 'director', 'actors', 'rating'],
+    });
+
+    return response.json(movieSerializer.serialize(movie));
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
@@ -43,6 +52,10 @@ export default class moviesController {
       actors: actors?.toString(),
     });
 
-    return response.json(movie);
+    const movieSerializer = new Serializer('movies', {
+      attributes: ['name', 'genre', 'director', 'actors', 'rating'],
+    });
+
+    return response.json(movieSerializer.serialize(movie));
   }
 }
