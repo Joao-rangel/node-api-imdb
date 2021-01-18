@@ -16,7 +16,7 @@ moviesRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      provider_id: Joi.string().uuid().required(),
+      id: Joi.string().uuid().required(),
     },
   }),
   moviesController.show,
