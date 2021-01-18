@@ -1,10 +1,10 @@
-### Dependencias
+### Dependências
 
 * Typescript 4.1.3
 * [PostgreSQL v8.5.1](https://www.postgresql.org/download/)
 
 
-### Setup
+### Configurações
 
 1.  Clone o repositório e acesse a pasta do projeto:
 
@@ -27,3 +27,7 @@
 ```
     $ yarn dev:server
 ```
+
+### Documentação no Postman
+
+https://documenter.getpostman.com/view/14215407/TVzXAER6
