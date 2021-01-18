@@ -32,7 +32,7 @@ app.use(
   },
 );
 
-app.listen(3333, () => {
+app.listen(process.env.APP_API_PORT, () => {
   // eslint-disable-next-line no-console
-  console.log('server started on port 3333');
+  console.log(`server started on port ${process.env.APP_API_PORT}`);
 });
