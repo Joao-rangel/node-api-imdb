@@ -40,6 +40,14 @@ class UsersRepository implements IUsersRepository {
     return admin;
   }
 
+  public async findByEmail(email: string): Promise<User | undefined> {
+    return this.ormRepository.findOne({ where: { email } });
+  }
+
+  public async findById(id: string): Promise<User | undefined> {
+    return this.ormRepository.findOne(id);
+  }
+
   public async save(user: User): Promise<User> {
     return this.ormRepository.save(user);
   }
