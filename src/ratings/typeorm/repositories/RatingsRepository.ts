@@ -12,9 +12,14 @@ class RatingsRepository implements IRatingsRepository {
   }
 
   async findAllByMovieId(movie_id: string): Promise<Rating[]> {
-    const ratings = await this.ormRepository.find({ where: { movie_id } });
+    return this.ormRepository.find({ where: { movie_id } });
+  }
 
-    return ratings;
+  async findByUserIdAndMovieId(
+    user_id: string,
+    movie_id: string,
+  ): Promise<Rating | undefined> {
+    return this.ormRepository.findOne({ where: { user_id, movie_id } });
   }
 
   public async create({
@@ -28,9 +33,7 @@ class RatingsRepository implements IRatingsRepository {
       user_rating,
     });
 
-    await this.ormRepository.save(rating);
-
-    return rating;
+    return this.ormRepository.save(rating);
   }
 }
 

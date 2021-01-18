@@ -43,6 +43,13 @@ class CreateRatingService {
 
     if (!movie) throw new AppError('Invalid movie id.');
 
+    const userRated = await this.ratingsRepository.findByUserIdAndMovieId(
+      user_id,
+      movie_id,
+    );
+
+    if (userRated) throw new AppError('This movie has already been rated.');
+
     const rating = await this.ratingsRepository.create({
       user_id,
       movie_id,
