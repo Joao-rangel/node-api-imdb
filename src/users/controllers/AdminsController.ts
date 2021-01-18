@@ -22,11 +22,11 @@ export default class AdminsController {
       attributes: ['name', 'email', 'admin', 'created_at'],
     });
 
-    return userSerializer.serialize(admin);
+    return response.json(userSerializer.serialize(admin));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { id } = request.user;
 
     const deleteAdmin = container.resolve(DeleteUserAdminService);
 
@@ -36,7 +36,7 @@ export default class AdminsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { id } = request.user;
     const { name, email, password } = request.body;
 
     const updateAdmin = container.resolve(UpdateUserAdminService);
@@ -52,6 +52,6 @@ export default class AdminsController {
       attributes: ['name', 'email', 'admin', 'created_at'],
     });
 
-    return userSerializer.serialize(admin);
+    return response.json(userSerializer.serialize(admin));
   }
 }

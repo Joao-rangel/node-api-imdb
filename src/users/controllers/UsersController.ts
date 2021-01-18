@@ -22,11 +22,11 @@ export default class UsersController {
       attributes: ['name', 'email', 'created_at'],
     });
 
-    return userSerializer.serialize(user);
+    return response.json(userSerializer.serialize(user));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { id } = request.user;
 
     const deleteUser = container.resolve(DeleteUserService);
 
@@ -36,7 +36,7 @@ export default class UsersController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { id } = request.user;
     const { name, email, password } = request.body;
 
     const updateUser = container.resolve(UpdateUserService);
@@ -52,6 +52,6 @@ export default class UsersController {
       attributes: ['name', 'email', 'created_at'],
     });
 
-    return userSerializer.serialize(user);
+    return response.json(userSerializer.serialize(user));
   }
 }
