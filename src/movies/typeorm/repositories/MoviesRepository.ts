@@ -13,9 +13,7 @@ class MoviesRepository implements IMoviesRepository {
   }
 
   public async save(movie: Movie): Promise<Movie> {
-    await this.ormRepository.save(movie);
-
-    return movie;
+    return this.ormRepository.save(movie);
   }
 
   public async create({
@@ -37,15 +35,11 @@ class MoviesRepository implements IMoviesRepository {
   }
 
   public async findById(id: string): Promise<Movie | undefined> {
-    const movie = await this.ormRepository.findOne(id);
-
-    return movie;
+    return this.ormRepository.findOne(id);
   }
 
   public async findByName(name: string): Promise<Movie | undefined> {
-    const movie = await this.ormRepository.findOne({ where: { name } });
-
-    return movie;
+    return this.ormRepository.findOne({ where: { name } });
   }
 
   public async findAllBy({
@@ -61,9 +55,7 @@ class MoviesRepository implements IMoviesRepository {
     if (director) Object.assign(search, { director: Like(`%${director}%`) });
     if (actors) Object.assign(search, { actors: Like(`%${actors}%`) });
 
-    const movies = await this.ormRepository.find({
-      where: search,
-    });
+    const movies = await this.ormRepository.find({ where: search });
 
     return movies;
   }

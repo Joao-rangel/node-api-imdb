@@ -55,7 +55,7 @@ class CreateRatingService {
       rating: movie.rating_sum / movie.rating_number,
     });
 
-    this.moviesRepository.save(movie);
+    await this.moviesRepository.save(movie);
 
     return rating;
   }
