@@ -7,7 +7,8 @@ import FindMovieRatingsService from '../services/FindMovieRatingsService';
 
 export default class RatingsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { user_id, movie_id, user_rating } = request.body;
+    const { movie_id, user_rating } = request.body;
+    const user_id = request.user.id;
 
     const createRating = container.resolve(CreateRatingService);
 

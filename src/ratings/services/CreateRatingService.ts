@@ -4,6 +4,7 @@ import Rating from '../typeorm/entities/Rating';
 import IRatingsRepository from '../repositories/IRatingsRepository';
 import IMoviesRepository from '../../movies/repositories/IMoviesRepository';
 import AppError from '../../shared/errors/AppError';
+import IUsersRepository from '../../users/repositories/IUsersRepository';
 
 interface IRequest {
   user_id: string;
@@ -18,6 +19,9 @@ class CreateRatingService {
 
     @inject('MoviesRepository')
     private moviesRepository: IMoviesRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
   ) {}
 
   public async execute({
@@ -25,6 +29,10 @@ class CreateRatingService {
     movie_id,
     user_rating,
   }: IRequest): Promise<Rating> {
+    const user = await this.usersRepository.findById(user_id);
+
+    if (user?.admin) throw new AppError('Admins cannot rate movies.');
+
     const allowedRatingValues = [0, 1, 2, 3, 4];
 
     if (!allowedRatingValues.includes(user_rating)) {
