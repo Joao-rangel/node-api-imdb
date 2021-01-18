@@ -9,10 +9,12 @@ import SearchMovieService from '../services/SearchMovieService';
 export default class MoviesController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, genre, director, actors } = request.body;
+    const { id } = request.user;
 
     const createMovie = container.resolve(CreateMovieService);
 
     const movie = await createMovie.execute({
+      user_id: id,
       name,
       genre,
       director,
