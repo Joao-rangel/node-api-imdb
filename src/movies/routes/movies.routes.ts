@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
+
 import ensureAuthentication from '../../shared/middlewares/ensureAuthentication';
 
 import MoviesController from '../controllers/MoviesController';
@@ -8,8 +10,29 @@ const moviesController = new MoviesController();
 
 moviesRouter.use(ensureAuthentication);
 
-moviesRouter.post('/', moviesController.create);
-moviesRouter.get('/:id', moviesController.show);
 moviesRouter.get('/', moviesController.index);
+
+moviesRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
+  moviesController.show,
+);
+
+moviesRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      genre: Joi.string().required(),
+      director: Joi.string().required(),
+      actors: Joi.string().required(),
+    },
+  }),
+  moviesController.create,
+);
 
 export default moviesRouter;
