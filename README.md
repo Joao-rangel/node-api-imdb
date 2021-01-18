@@ -21,9 +21,17 @@
 ```
 4. Faça o mesmo procedimento com o arquivo ormconfig.json e altere os campos necessários:
 ```
-    cp ormconfig.example.json ormconfig.json
+    $ cp ormconfig.example.json ormconfig.json
 ```
-5.  Inicie o servidor da aplicação:
+5.  Inicie o docker para o postgres (ajustando os campos SET_):
+```
+    $ docker run -d --name postgresql -e POSTGRESQL_PASSWORD=SET_PASSWORD -e POSTGRESQL_USERNAME=SET_USERNAME -e POSTGRESQL_DATABASE=SET_DATABASE -p 5432:5432 postgres:latest
+```
+6.  Execute a migration do banco de dados:
+```
+    $ yarn typeorm migration:run
+```
+7.  Inicie o servidor da aplicação:
 ```
     $ yarn dev:server
 ```
