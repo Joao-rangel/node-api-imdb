@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import '../../users/providers';
+
 import IUsersRepository from '../../users/repositories/IUsersRepository';
 import UsersRepository from '../../users/typeorm/repositories/UsersRepository';
 import IMoviesRepository from '../../movies/repositories/IMoviesRepository';
