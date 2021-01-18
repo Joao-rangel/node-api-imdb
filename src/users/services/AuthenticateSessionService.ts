@@ -5,6 +5,7 @@ import authConfig from '../../config/auth';
 
 import User from '../typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import AppError from '../../shared/errors/AppError';
 
 interface IRequest {
@@ -22,6 +23,9 @@ class AuthenticateSessionService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -29,7 +33,10 @@ class AuthenticateSessionService {
 
     if (!user) throw new AppError('Invalid email/senha combination.', 401);
 
-    const validPassword = password === user.password;
+    const validPassword = await this.hashProvider.compareHash(
+      password,
+      user.password,
+    );
 
     if (!validPassword) {
       throw new AppError('Invalid email/senha combination.', 401);
