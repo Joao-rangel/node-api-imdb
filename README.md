@@ -1,8 +1,7 @@
 ### Dependências
 
 * Typescript 4.1.3
-* [PostgreSQL v13.1](https://www.postgresql.org/download/)
-* 
+* [PostgreSQL v13.1](https://registry.hub.docker.com/_/postgres/) (using docker)
 
 ### Configurações
 
