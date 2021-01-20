@@ -1,8 +1,8 @@
 ### Dependências
 
 * Typescript 4.1.3
-* [PostgreSQL v8.5.1](https://www.postgresql.org/download/)
-
+* [PostgreSQL v13.1](https://www.postgresql.org/download/)
+* 
 
 ### Configurações
 
@@ -25,7 +25,7 @@
 ```
 5.  Inicie o docker para o postgres (ajustando os campos SET_):
 ```
-    $ docker run -d --name postgresql -e POSTGRESQL_PASSWORD=SET_PASSWORD -e POSTGRESQL_USERNAME=SET_USERNAME -e POSTGRESQL_DATABASE=SET_DATABASE -p 5432:5432 postgres:latest
+    $ docker run -d --name postgresql -e POSTGRES_PASSWORD=SET_PASSWORD -e POSTGRES_USER=SET_USERNAME -e POSTGRES_DB=SET_DATABASE -p 5432:5432 postgres:latest
 ```
 6.  Execute a migration do banco de dados:
 ```
